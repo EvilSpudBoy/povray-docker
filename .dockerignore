@@ -1,0 +1,9 @@
+.git
+.github
+.gitmodules
+.vscode
+.idea
+*.swp
+*.swo
+*.tmp
+test/output.png
