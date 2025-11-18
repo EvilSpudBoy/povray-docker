@@ -30,20 +30,23 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push image
-        env:
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
-        run: |
-          if [[ -z "${RELEASE_TAG}" ]]; then
-            echo "Release tag name is empty; refusing to push." >&2
-            exit 1
-          fi
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest,enable=${{ github.event.release.prerelease == false }}
 
-          docker buildx build \
-            --platform linux/amd64,linux/arm64 \
-            --cache-from type=gha \
-            --cache-to type=gha,mode=max \
-            --tag "${IMAGE_NAME}:${RELEASE_TAG}" \
-            --tag "${IMAGE_NAME}:latest" \
-            --push \
-            .
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
