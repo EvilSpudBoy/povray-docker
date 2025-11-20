@@ -31,7 +31,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Run tests
-        run: ./test/test.sh
+        run: bash ./test/test.sh
 
       - name: Extract metadata
         id: meta
