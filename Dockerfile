@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ARG POVRAY_REPO="https://github.com/POV-Ray/povray.git"
 ARG POVRAY_REF="3.7-stable"
-ARG COMPILED_BY="Docker Builder <docker@example.com>"
+ARG COMPILED_BY="EvilSpudBoy"
 
 WORKDIR /src
 RUN git clone --depth 1 --single-branch --branch "${POVRAY_REF}" "${POVRAY_REPO}" povray

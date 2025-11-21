@@ -11,7 +11,7 @@ upstream `3.7-stable` branch directly from GitHub.
 ```bash
 docker build \
   -t povray:3.7 \
-  --build-arg COMPILED_BY="Your Name <email@example.com>" \
+  --build-arg COMPILED_BY="EvilSpudBoy" \
   .
 ```
 
@@ -21,7 +21,7 @@ Available build arguments:
 | --- | --- | --- |
 | `POVRAY_REPO` | Git URL to clone | `https://github.com/POV-Ray/povray.git` |
 | `POVRAY_REF`  | Branch/tag/commit to checkout | `3.7-stable` |
-| `COMPILED_BY` | Populates the mandatory `COMPILED_BY` configure flag | `Docker Builder <docker@example.com>` |
+| `COMPILED_BY` | Populates the mandatory `COMPILED_BY` configure flag | `EvilSpudBoy` |
 
 
 ## Rendering scenes
